@@ -14,9 +14,9 @@ services:
     restart: always
     environment:
       MYSQL_DATABASE: ambassador
-      MYSQL_USER: **
-      MYSQL_PASSWORD: **
-      MYSQL_ROOT_PASSWORD: **
+      MYSQL_USER: *
+      MYSQL_PASSWORD: *
+      MYSQL_ROOT_PASSWORD: *
     volumes:
       - .dbdata:/var/lib/mysql
     ports:
