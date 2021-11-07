@@ -11,13 +11,13 @@ func main() {
 	database.Connect()
 
 	for i := 0; i < 30; i++ {
-		var orderItems []models.OrderItems
+		var orderItems []models.OrderItem
 
 		for j := 0; j < rand.Intn(5); j++ {
 			price := float64(rand.Intn(90) + 10)
 			qty := uint(rand.Intn(5))
 
-			orderItems = append(orderItems, models.OrderItems{
+			orderItems = append(orderItems, models.OrderItem{
 				ProductTitle:      faker.Word(),
 				Price:             price,
 				Quantity:          qty,
@@ -34,7 +34,7 @@ func main() {
 			LastName:        faker.LastName(),
 			Email:           faker.Email(),
 			Complete:        true,
-			OrderItem:       orderItems,
+			OrderItems:      orderItems,
 		})
 
 	}
