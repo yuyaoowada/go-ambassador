@@ -33,7 +33,7 @@ func (order *Order) FullName() string {
 	return order.FirstName + " " + order.LastName
 }
 
-func (order *Order) GetTitle() float64 {
+func (order *Order) GetTotal() float64 {
 	var total float64 = 0
 
 	for _, orderItem := range order.OrderItems {
