@@ -35,9 +35,9 @@ func CreateProducts(c *fiber.Ctx) error {
 }
 
 func GetProduct(c *fiber.Ctx) error {
-	var product models.Product
-
 	id, _ := strconv.Atoi(c.Params("id"))
+
+	var product models.Product
 
 	product.Id = uint(id)
 
@@ -63,19 +63,13 @@ func UpdateProduct(c *fiber.Ctx) error {
 	return c.JSON(product)
 }
 
-func deleteCache(key string) {
-	time.Sleep(5 * time.Second)
-
-	database.Cache.Del(context.Background(), key)
-}
-
 func DeleteProduct(c *fiber.Ctx) error {
 	id, _ := strconv.Atoi(c.Params("id"))
 
 	product := models.Product{}
 	product.Id = uint(id)
 
-	database.DB.Model(&product).Delete(&product)
+	database.DB.Delete(&product)
 
 	go database.ClearCache("products_frontend", "products_backend")
 
@@ -155,12 +149,14 @@ func ProductsBackend(c *fiber.Ctx) error {
 	page, _ := strconv.Atoi(c.Query("page", "1"))
 	perPage := 9
 
-	var data []models.Product = searchedProducts
+	//var data []models.Product = searchedProducts
+	var data []models.Product
 
 	if total <= page*perPage && total >= (page-1)*perPage {
 		data = searchedProducts[(page-1)*perPage : total]
 	} else if total >= page*perPage {
-		data = data[(page-1)*perPage : page*perPage]
+		//data = data[(page-1)*perPage : page*perPage]
+		data = searchedProducts[(page-1)*perPage : page*perPage]
 	} else {
 		data = []models.Product{}
 	}
@@ -171,4 +167,5 @@ func ProductsBackend(c *fiber.Ctx) error {
 		"page":      page,
 		"last_page": total/perPage + 1,
 	})
+
 }

@@ -36,6 +36,5 @@ func main() {
 			Complete:        true,
 			OrderItems:      orderItems,
 		})
-
 	}
 }
